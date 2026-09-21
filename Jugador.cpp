@@ -30,3 +30,19 @@ int mejorIndice = -1;
             }
         }
     }
+// Si no tiene cartas del color pedido
+    if (mejorIndice == -1) {
+        mejorIndice = 0;
+        for (size_t i = 1; i < mano.size(); ++i) {
+            if (mano[i].obtenerNumero() < mano[mejorIndice].obtenerNumero()) {
+                mejorIndice = static_cast<int>(i);
+            }
+        }
+    }
+
+    // Extraer la carta elegida de la mano y retornarla
+    Carta cartaSeleccionada = mano[mejorIndice];
+    mano.erase(mano.begin() + mejorIndice);
+
+    return cartaSeleccionada;
+}
