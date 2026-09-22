@@ -1,16 +1,157 @@
-/******************************************************************************
+bool Juego::cargarPartida(
+    const std::string& nombreArchivo
+) {
 
-                              Online C++ Compiler.
-               Code, Compile, Run and Debug C++ program online.
-Write your code in this editor and press "Run" button to compile and execute it.
+    std::ifstream archivo(
+        nombreArchivo
+    );
 
-*******************************************************************************/
 
-#include <iostream>
+    if (!archivo.is_open()) {
+        return false;
+    }
 
-int main()
-{
-    std::cout<<"Hello World";
 
-    return 0;
+    size_t cantidadColores;
+
+    archivo
+        >> cantidadColores;
+
+
+    colores.clear();
+
+
+    for (
+        size_t i = 0;
+        i < cantidadColores;
+        i++
+    ) {
+
+        std::string color;
+
+        archivo >> color;
+
+        colores.push_back(color);
+    }
+
+
+    archivo
+        >> maxNumero;
+
+
+    archivo
+        >> rondaActual;
+
+
+    archivo
+        >> jugadorInicial;
+
+
+    size_t cantidadJugadores;
+
+    archivo
+        >> cantidadJugadores;
+
+
+    jugadores.clear();
+
+
+    for (
+        size_t i = 0;
+        i < cantidadJugadores;
+        i++
+    ) {
+
+        int id;
+
+        int puntos;
+
+        size_t cantidadCartas;
+
+
+        archivo
+            >> id
+            >> puntos
+            >> cantidadCartas;
+
+
+        Jugador jugador(id);
+
+
+        for (
+            size_t j = 0;
+            j < cantidadCartas;
+            j++
+        ) {
+
+            std::string color;
+
+            int numero;
+
+
+            archivo
+                >> color
+                >> numero;
+
+
+            jugador.agregarCarta(
+                Carta(color, numero)
+            );
+        }
+
+
+        jugador.sumarPuntos(
+            puntos
+        );
+
+
+        jugadores.push_back(
+            jugador
+        );
+    }
+
+
+    baraja =
+        Baraja(
+            colores,
+            maxNumero
+        );
+
+
+    baraja.limpiar();
+
+
+    size_t cartasRestantes;
+
+
+    archivo
+        >> cartasRestantes;
+
+
+    for (
+        size_t i = 0;
+        i < cartasRestantes;
+        i++
+    ) {
+
+        std::string color;
+
+        int numero;
+
+
+        archivo
+            >> color
+            >> numero;
+
+
+        baraja.agregarCarta(
+            Carta(color, numero)
+        );
+    }
+
+
+    archivo.close();
+
+
+    return true;
 }
