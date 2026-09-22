@@ -14,12 +14,6 @@ private:
 
     Condicion condicion;
 
-    /*
-       Guardamos:
-
-       ID del jugador
-       Carta que jugó
-    */
     std::vector<std::pair<int, Carta>> cartasJugadas;
 
     int ganador;
