@@ -1,58 +1,44 @@
-#include "Ronda.h"
+#ifndef RONDA_H
+#define RONDA_H
 
-Ronda::Ronda(Condicion condicion)
-    : condicion(condicion), ganador(nullptr) {}
+#include <vector>
+#include <utility>
 
-void Ronda::jugar(std::vector<Jugador*>& jugadores) {
-    cartasJugadas.clear();
-    for (Jugador* jugador : jugadores) {
-        Carta cartaTirada = jugador->jugarCarta(condicion);
-        cartasJugadas.push_back(cartaTirada);
-    }
+#include "Carta.h"
+#include "Condicion.h"
+#include "Jugador.h"
 
-    ganador = elegirGanador(jugadores);
+class Ronda {
 
-   
-    if (ganador != nullptr) {
-        ganador->sumarPuntos();
-    }
-}
+private:
 
-Jugador* Ronda::elegirGanador(std::vector<Jugador*>& jugadores) {
-    int indiceGanador = -1;
+    Condicion condicion;
 
-    for (size_t i = 0; i < cartasJugadas.size(); i++) {
-        if (cartasJugadas[i].getColor() == condicion.getColor()) {
-            if (indiceGanador == -1) {
-                indiceGanador = static_cast<int>(i);
-            } else {
-                bool esMejor = false;
-                if (condicion.getTipo() == TipoOrden::MAS_ALTA) {
-                    esMejor = cartasJugadas[i].obtenerNumero()
-                              > cartasJugadas[indiceGanador].obtenerNumero();
-                } else {
-                    esMejor = cartasJugadas[i].obtenerNumero()
-                              < cartasJugadas[indiceGanador].obtenerNumero();
-                }
-                if (esMejor) {
-                    indiceGanador = static_cast<int>(i);
-                }
-            }
-        }
-    }
+    /*
+       Guardamos:
 
-    
-    if (indiceGanador == -1) {
-        return nullptr;
-    }
+       ID del jugador
+       Carta que jugó
+    */
+    std::vector<std::pair<int, Carta>> cartasJugadas;
 
-    return jugadores[indiceGanador];
-}
+    int ganador;
 
-Jugador* Ronda::getGanador() const {
-    return ganador;
-}
+public:
 
-const std::vector<Carta>& Ronda::getCartasJugadas() const {
-    return cartasJugadas;
-}
+    Ronda();
+    explicit Ronda(const Condicion& condicion);
+
+    void jugar(std::vector<Jugador>& jugadores);
+
+    int elegirGanador() const;
+
+    Condicion getCondicion() const;
+
+    const std::vector<std::pair<int, Carta>>&
+    getCartasJugadas() const;
+
+    int getGanador() const;
+};
+
+#endif
