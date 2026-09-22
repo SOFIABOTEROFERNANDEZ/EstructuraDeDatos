@@ -2,16 +2,19 @@
 #include <iostream>
 
 Jugador::Jugador(int id_) : id(id_), puntos(0) {}
+
 void Jugador::agregarCarta(const Carta& carta) {
-  mano.push_back(carta);
+    mano.push_back(carta);
 }
+
 Carta Jugador::jugarCarta(const Condicion& condicion) {
-  if (mano.empty()) {
+    if (mano.empty()) {
         throw std::runtime_error("El jugador no tiene cartas en la mano.");
     }
-int mejorIndice = -1;
 
-    // Buscar entre las cartas de la mano las que coincidan con el color de la condicion 
+    int mejorIndice = -1;
+
+    // Buscar entre las cartas de la mano las que coincidan con el color de la condicion
     for (size_t i = 0; i < mano.size(); ++i) {
         if (mano[i].getColor() == condicion.getColor()) {
             if (mejorIndice == -1) {
@@ -30,7 +33,8 @@ int mejorIndice = -1;
             }
         }
     }
-// Si no tiene cartas del color pedido
+
+    // Si no tiene cartas del color pedido
     if (mejorIndice == -1) {
         mejorIndice = 0;
         for (size_t i = 1; i < mano.size(); ++i) {
@@ -46,6 +50,7 @@ int mejorIndice = -1;
 
     return cartaSeleccionada;
 }
+
 void Jugador::sumarPuntos() {
     puntos++;
 }
