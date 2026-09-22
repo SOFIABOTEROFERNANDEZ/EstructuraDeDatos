@@ -7,14 +7,15 @@ using namespace std;
 class Carta
 {
 private:
-    string color;
+    std::string color;
     int numero;
 
 public:
-    Carta(string color, int numero);
+    carta();
+    Carta(const std::string& color, int numero);
 
-    string getColor();
-    int getNumero();
+    std::string getColor() const;
+    int getNumero() const;
 };
 
 #endif
