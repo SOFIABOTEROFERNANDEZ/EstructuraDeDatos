@@ -1,44 +1,115 @@
-#ifndef RONDA_H
-#define RONDA_H
+#include "Ronda.h"
 
-#include <vector>
-#include <utility>
+Ronda::Ronda()
+    : condicion(), ganador(-1) {
+}
 
-#include "Carta.h"
-#include "Condicion.h"
-#include "Jugador.h"
+Ronda::Ronda(const Condicion& condicion)
+    : condicion(condicion), ganador(-1) {
+}
 
-class Ronda {
+void Ronda::jugar(std::vector<Jugador>& jugadores) {
 
-private:
+    cartasJugadas.clear();
 
-    Condicion condicion;
+    ganador = -1;
 
-    /*
-       Guardamos:
+    for (Jugador& jugador : jugadores) {
 
-       ID del jugador
-       Carta que jugó
-    */
-    std::vector<std::pair<int, Carta>> cartasJugadas;
+        if (jugador.getMano().empty()) {
+            continue;
+        }
 
-    int ganador;
+        Carta carta =
+            jugador.seleccionarCarta(condicion);
 
-public:
+        jugador.jugarCarta(carta);
 
-    Ronda();
-    explicit Ronda(const Condicion& condicion);
+        cartasJugadas.push_back(
+            {jugador.getId(), carta}
+        );
+    }
 
-    void jugar(std::vector<Jugador>& jugadores);
+    ganador = elegirGanador();
 
-    int elegirGanador() const;
+    if (ganador != -1) {
 
-    Condicion getCondicion() const;
+        for (Jugador& jugador : jugadores) {
 
-    const std::vector<std::pair<int, Carta>>&
-    getCartasJugadas() const;
+            if (jugador.getId() == ganador) {
 
-    int getGanador() const;
-};
+                jugador.sumarPuntos(1);
 
-#endif
+                break;
+            }
+        }
+    }
+}
+
+int Ronda::elegirGanador() const {
+
+    int ganadorId = -1;
+
+    int mejorNumero = 0;
+
+    bool encontrado = false;
+
+    for (const auto& jugada : cartasJugadas) {
+
+        const Carta& carta = jugada.second;
+
+
+        if (carta.getColor() != condicion.getColor()) {
+            continue;
+        }
+
+        if (!encontrado) {
+
+            encontrado = true;
+
+            mejorNumero = carta.getNumero();
+
+            ganadorId = jugada.first;
+
+            continue;
+        }
+
+        if (
+            condicion.getOrden() == TipoOrden::MAYOR &&
+            carta.getNumero() > mejorNumero
+        ) {
+
+            mejorNumero = carta.getNumero();
+
+            ganadorId = jugada.first;
+        }
+
+        if (
+            condicion.getOrden() == TipoOrden::MENOR &&
+            carta.getNumero() < mejorNumero
+        ) {
+
+            mejorNumero = carta.getNumero();
+
+            ganadorId = jugada.first;
+        }
+    }
+
+    return ganadorId;
+}
+
+Condicion Ronda::getCondicion() const {
+
+    return condicion;
+}
+
+const std::vector<std::pair<int, Carta>>&
+Ronda::getCartasJugadas() const {
+
+    return cartasJugadas;
+}
+
+int Ronda::getGanador() const {
+
+    return ganador;
+}
