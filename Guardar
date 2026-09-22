@@ -1,0 +1,107 @@
+bool Juego::guardarPartida(
+    const std::string& nombreArchivo
+) const {
+
+    std::ofstream archivo(
+        nombreArchivo
+    );
+
+
+    if (!archivo.is_open()) {
+        return false;
+    }
+
+
+    // Cantidad de colores
+    archivo
+        << colores.size()
+        << "\n";
+
+
+    // Colores
+    for (
+        const std::string& color :
+        colores
+    ) {
+
+        archivo
+            << color
+            << "\n";
+    }
+
+
+    // Configuración
+    archivo
+        << maxNumero
+        << "\n";
+
+
+    archivo
+        << rondaActual
+        << "\n";
+
+
+    archivo
+        << jugadorInicial
+        << "\n";
+
+
+    // Cantidad de jugadores
+    archivo
+        << jugadores.size()
+        << "\n";
+
+
+    // Información de cada jugador
+    for (
+        const Jugador& jugador :
+        jugadores
+    ) {
+
+        archivo
+            << jugador.getId()
+            << " "
+            << jugador.getPuntos()
+            << " "
+            << jugador.getMano().size()
+            << "\n";
+
+
+        for (
+            const Carta& carta :
+            jugador.getMano()
+        ) {
+
+            archivo
+                << carta.getColor()
+                << " "
+                << carta.getNumero()
+                << "\n";
+        }
+    }
+
+
+    // Cartas restantes de la baraja
+    archivo
+        << baraja.cartasDisponibles()
+        << "\n";
+
+
+    for (
+        const Carta& carta :
+        baraja.getCartas()
+    ) {
+
+        archivo
+            << carta.getColor()
+            << " "
+            << carta.getNumero()
+            << "\n";
+    }
+
+
+    archivo.close();
+
+
+    return true;
+}
