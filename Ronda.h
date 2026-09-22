@@ -4,7 +4,7 @@
 #include <vector>
 #include "Condicion.h"
 #include "Carta.h"
-#include "Jugador.h"
+#include "jugador.h"
 
 class Ronda {
 private:
@@ -13,7 +13,6 @@ private:
     Jugador* ganador;
 
 public:
-   
     Ronda(Condicion condicion);
     void jugar(std::vector<Jugador*>& jugadores);
     Jugador* elegirGanador(std::vector<Jugador*>& jugadores);
