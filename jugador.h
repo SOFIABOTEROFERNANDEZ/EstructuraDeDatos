@@ -15,7 +15,7 @@ public:
     // Constructor
     Jugador(int id_);
 
-    // Métodos principales segun UML y requerimientos
+    // Métodos principales
     void agregarCarta(const Carta& carta);
     Carta jugarCarta(const Condicion& condicion);
     void sumarPuntos();
