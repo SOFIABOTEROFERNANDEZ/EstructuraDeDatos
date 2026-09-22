@@ -66,6 +66,8 @@ void Juego::iniciarJuego()
         cambioJugadorInicial();
     }
 
+    
+
     mostrarResultados();
 }
 
