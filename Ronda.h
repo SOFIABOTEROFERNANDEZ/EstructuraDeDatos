@@ -2,6 +2,7 @@
 #define RONDA_H
 
 #include <vector>
+#include <utility>
 #include "Condicion.h"
 #include "Carta.h"
 #include "jugador.h"
@@ -9,15 +10,21 @@
 class Ronda {
 private:
     Condicion condicion;
-    std::vector<Carta> cartasJugadas;
-    Jugador* ganador;
+
+    std::vector<std::pair<int, Carta>> cartasJugadas;
+
+    int ganador;
+
 
 public:
-    Ronda(Condicion condicion);
-    void jugar(std::vector<Jugador*>& jugadores);
-    Jugador* elegirGanador(std::vector<Jugador*>& jugadores);
-    Jugador* getGanador() const;
-    const std::vector<Carta>& getCartasJugadas() const;
+    Ronda();
+    explicit Ronda(const Condicion& condicion);
+    void jugar(std::vector<Jugador>& jugadores);
+    int elegirGanador() const;
+    Condicion getCondicion() const;
+    const std::vector<std::pair<int, Carta>>&
+    getCartasJugadas() const;
+    int getGanador() const;
 };
 
 #endif
