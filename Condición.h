@@ -1,23 +1,18 @@
 #ifndef CONDICION_H
 #define CONDICION_H
-
-#include "Color.h"
-
-enum class TipoOrden {
-    MAS_ALTA,
-    MAS_BAJA
-};
+#include <string>
+#include "TipoOrden.h"
 
 class Condicion {
 private:
-    Color color;
-    TipoOrden tipo;
-
+    std::string color;
+    TipoOrden orden;
 public:
-    Condicion(Color color, TipoOrden tipo);
+    Condicion();
+    Condicion(const std::string& color, TipoOrden orden);
 
-    Color getColor() const;
-    TipoOrden getTipo() const;
+    std::string getColor() const;
+    TipoOrden getOrden() const;
 };
 
 #endif
