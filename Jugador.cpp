@@ -142,9 +142,6 @@ Carta Jugador::elegirCarta(const Condicion& condicion) const {
     } while (indiceElegido == -1);
     return mano[indiceElegido];
 }
-
-
-}
 void Jugador::sumarPuntos(int cantidad) {
     puntos += cantidad;
 }
