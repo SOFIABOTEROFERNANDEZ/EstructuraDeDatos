@@ -1,5 +1,5 @@
 
-<h3 align="center">Arquitectura y Vista del Proyecto</h3>
+<h3>Arquitectura y Vista del Proyecto</h3>
 
 <p align="center">
   <table>
