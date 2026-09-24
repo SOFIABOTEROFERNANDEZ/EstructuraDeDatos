@@ -1,5 +1,6 @@
 #include "Jugador.h"
 #include <iostream>
+#include <stdexcept>
 
 Jugador::Jugador(int id_) : id(id_), puntos(0) {}
 
