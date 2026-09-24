@@ -16,7 +16,7 @@
     <tr>
       <td align="center" colspan="2">
         <b>Juego de Cartas</b><br>
-        <img src="juego_cartas.jpeg" width="450" alt="Juego de Cartas">
+        <img src="UML GRAFICO" width="450" alt="Juego de Cartas">
       </td>
     </tr>
   </table>
