@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="imagenes/juego_cartas.jpeg" width="100%" alt="Banner de Juego de Cartas">
+</p>
+
 # Manual Oficial del Juego de Cartas Acumulativo
 
 ## 1. Descripción General del Proyecto
