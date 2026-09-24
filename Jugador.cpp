@@ -56,19 +56,15 @@ Carta Jugador::jugarCarta(const Condicion& condicion) {
 
     return cartaSeleccionada;
 }
-
 void Jugador::sumarPuntos() {
     puntos++;
 }
-
 int Jugador::getId() const {
     return id;
 }
-
 int Jugador::getPuntos() const {
     return puntos;
 }
-
 const std::vector<Carta>& Jugador::getMano() const {
     return mano;
 }
