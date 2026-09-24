@@ -21,9 +21,9 @@ public:
     const std::vector<Carta>& getMano() const;
 
     void agregarCarta(const Carta& carta);
-    Carta jugarCarta(const Condicion& condicion);
-    void sumarPuntos();
-    
+    bool jugarCarta(const Carta& carta);
+    void sumarPuntos(int cantidad);
+    bool tieneColor(const std::string& color) const;
 
 };
 
