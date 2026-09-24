@@ -334,4 +334,248 @@ Condicion Juego::pedirCondicion() const {
                 break;
             }
         }
-        
+
+        if (!quedanCartas) {
+            break;
+        }
+        iniciarRonda();
+        int opcion;
+        std::cout
+            << "\n1. Continuar\n";
+        std::cout
+            << "2. Guardar y salir\n";
+        std::cout
+            << "Selecciona: ";
+        std::cin >> opcion;
+        if (opcion == 2) {
+            if (
+                guardarPartida(
+                    "partida.txt"
+                )
+            ) {
+                std::cout
+                    << "Partida guardada en "
+                       "partida.txt\n";
+            }
+            return;
+        }
+    }
+    std::cout
+        << "\n=== PARTIDA TERMINADA ===\n";
+    mostrarResultados();
+}
+
+
+
+
+ void Juego::mostrarResultados() const {
+    std::cout
+        << "\n=== RESULTADOS ===\n";
+    int mayorPuntaje = -1;
+    for (
+        const Jugador& jugador :
+        jugadores
+    ) {
+        std::cout
+            << "Jugador "
+            << jugador.getId()
+            << ": "
+            << jugador.getPuntos()
+            << " puntos\n";
+        if (
+            jugador.getPuntos() >
+            mayorPuntaje
+        ) {
+            mayorPuntaje =
+                jugador.getPuntos();
+        }
+    }
+    std::cout
+        << "\nGanador(es): ";
+    for (
+        const Jugador& jugador :
+        jugadores
+    ) {
+        if (
+            jugador.getPuntos() ==
+            mayorPuntaje
+        ) {
+            std::cout
+                << "Jugador "
+                << jugador.getId()
+                << " ";
+        }
+    }
+    std::cout << "\n";
+}
+bool Juego::guardarPartida(
+    const std::string& nombreArchivo
+) const {
+    std::ofstream archivo(
+        nombreArchivo
+    );
+    if (!archivo.is_open()) {
+        return false;
+    }
+
+
+ 
+    archivo
+        << colores.size()
+        << "\n";
+    for (
+        const std::string& color :
+        colores
+    ) {
+        archivo
+            << color
+            << "\n";
+    }
+    archivo
+        << maxNumero
+        << "\n";
+    archivo
+        << rondaActual
+        << "\n";
+    archivo
+        << jugadorInicial
+        << "\n";
+    archivo
+        << jugadores.size()
+        << "\n";
+    for (
+        const Jugador& jugador :
+        jugadores
+    ) {
+        archivo
+            << jugador.getId()
+            << " "
+            << jugador.getPuntos()
+            << " "
+            << jugador.getMano().size()
+            << "\n";
+        for (
+            const Carta& carta :
+            jugador.getMano()
+        ) {
+            archivo
+                << carta.getColor()
+                << " "
+                << carta.getNumero()
+                << "\n";
+        }
+    }
+    archivo
+        << baraja.cartasDisponibles()
+        << "\n";
+    for (
+        const Carta& carta :
+        baraja.getCartas()
+    ) {
+        archivo
+            << carta.getColor()
+            << " "
+            << carta.getNumero()
+            << "\n";
+    }
+    archivo.close();
+    return true;
+}
+
+
+
+
+bool Juego::cargarPartida(
+    const std::string& nombreArchivo
+) {
+    std::ifstream archivo(
+        nombreArchivo
+    );
+    if (!archivo.is_open()) {
+        return false;
+    }
+    size_t cantidadColores;
+    archivo
+        >> cantidadColores;
+    colores.clear();
+    for (
+        size_t i = 0;
+        i < cantidadColores;
+        i++
+    ) {
+        std::string color;
+        archivo >> color;
+        colores.push_back(color);
+    }
+    archivo
+        >> maxNumero;
+    archivo
+        >> rondaActual;
+    archivo
+        >> jugadorInicial;
+    size_t cantidadJugadores;
+    archivo
+        >> cantidadJugadores;
+    jugadores.clear();
+    for (
+        size_t i = 0;
+        i < cantidadJugadores;
+        i++
+    ) {
+        int id;
+        int puntos;
+        size_t cantidadCartas;
+        archivo
+            >> id
+            >> puntos
+            >> cantidadCartas;
+        Jugador jugador(id);
+        for (
+            size_t j = 0;
+            j < cantidadCartas;
+            j++
+        ) {
+            std::string color;
+            int numero;
+            archivo
+                >> color
+                >> numero;
+            jugador.agregarCarta(
+                Carta(color, numero)
+            );
+        }
+        jugador.sumarPuntos(
+            puntos
+        );
+        jugadores.push_back(
+            jugador
+        );
+    }
+    baraja =
+        Baraja(
+            colores,
+            maxNumero
+        );
+    baraja.limpiar();
+    size_t cartasRestantes;
+    archivo
+        >> cartasRestantes;
+    for (
+        size_t i = 0;
+        i < cartasRestantes;
+        i++
+    ) {
+        std::string color;
+        int numero;
+        archivo
+            >> color
+            >> numero;
+        baraja.agregarCarta(
+            Carta(color, numero)
+        );
+    }
+    archivo.close();
+    return true;
+}
+
+
