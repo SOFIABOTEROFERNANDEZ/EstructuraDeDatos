@@ -11,6 +11,7 @@ Jugador::Jugador(int id)
 void Jugador::agregarCarta(const Carta& carta) {
     mano.push_back(carta);
 
+    
 }
 bool Jugador::jugarCarta(const Carta& carta) {
     for (auto it = mano.begin(); it != mano.end(); ++it) {
@@ -68,6 +69,7 @@ Carta Jugador::seleccionarCarta(
         indice = 0;
     }
     return mano[indice];
+
 }
 Carta Jugador::elegirCarta(const Condicion& condicion) const {
     if (mano.empty()) {
@@ -140,6 +142,7 @@ Carta Jugador::elegirCarta(const Condicion& condicion) const {
     } while (indiceElegido == -1);
     return mano[indiceElegido];
 }
+
 
 }
 void Jugador::sumarPuntos(int cantidad) {
