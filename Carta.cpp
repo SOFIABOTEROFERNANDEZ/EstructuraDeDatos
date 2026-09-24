@@ -1,19 +1,18 @@
 #include "Carta.h"
 
-Carta::Carta(const std::string& color, int numero)
-    : color(color), numero(numero) {}
+Carta::Carta() : color(""), numero(0) {
+}
 
-std::string Carta::getColor() const
-{
+Carta::Carta(const std::string& color, int numero)
+    : color(color), numero(numero) {
+        
+}
+
+std::string Carta::getColor() const {
     return color;
 }
 
-int Carta::getNumero() const
-{
+int Carta::getNumero() const {
     return numero;
 }
 
-int Carta::obtenerNumero() const
-{
-    return numero;
-}
