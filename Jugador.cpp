@@ -12,7 +12,6 @@ void Jugador::agregarCarta(const Carta& carta) {
     mano.push_back(carta);
 }
 
-
 Carta Jugador::jugarCarta(const Condicion& condicion) {
     if (mano.empty()) {
         throw std::runtime_error("El jugador no tiene cartas en la mano.");
@@ -56,8 +55,8 @@ Carta Jugador::jugarCarta(const Condicion& condicion) {
 
     return cartaSeleccionada;
 }
-void Jugador::sumarPuntos() {
-    puntos++;
+void Jugador::sumarPuntos(int cantidad) {
+    puntos += cantidad;
 }
 int Jugador::getId() const {
     return id;
