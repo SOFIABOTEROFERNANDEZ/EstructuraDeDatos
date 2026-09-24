@@ -1,6 +1,7 @@
 #ifndef JUGADOR_H
 #define JUGADOR_H
 
+#include <string>
 #include <vector>
 #include "Carta.h"
 #include "Condicion.h"
@@ -12,18 +13,18 @@ private:
     int puntos;
 
 public:
-    // Constructor
+    Jugador();
     Jugador(int id_);
 
-    // Métodos principales
+    int getId() const;
+    int getPuntos() const;
+    const std::vector<Carta>& getMano() const;
+
     void agregarCarta(const Carta& carta);
     Carta jugarCarta(const Condicion& condicion);
     void sumarPuntos();
     
-    // Getters y utilidades
-    int getId() const;
-    int getPuntos() const;
-    const std::vector<Carta>& getMano() const;
+
 };
 
 #endif
