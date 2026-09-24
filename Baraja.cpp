@@ -1,55 +1,72 @@
 #include "Baraja.h"
+
 #include <algorithm>
 #include <random>
+#include <stdexcept>
 
 Baraja::Baraja()
-{
-    crearCartas();
+    : maxNumero(10) {
 }
 
-void Baraja::crearCartas()
-{
-    vector<string> colores =
-    {
-        "Azul",
-        "Rojo",
-        "Verde",
-        "Amarillo",
-        "Morado",
-        "Naranja"
-    };
+Baraja::Baraja(const std::vector<std::string>& colores, int maxNumero)
+    : colores(colores), maxNumero(maxNumero) {
+}
 
-    for (string color : colores)
-    {
-        for (int numero = 1; numero <= 9; numero++)
-        {
-            cartas.push_back(Carta(color, numero));
+void Baraja::crearCartas() {
+
+    cartas.clear();
+
+    for (const std::string& color : colores) {
+
+        for (int numero = 1; numero <= maxNumero; numero++) {
+
+            cartas.emplace_back(color, numero);
         }
     }
 }
 
-void Baraja::mezclar()
-{
-    random_device semilla;
-    mt19937 generador(semilla());
+void Baraja::mezclar() {
 
-    shuffle(cartas.begin(), cartas.end(), generador);
+    std::random_device rd;
+    std::mt19937 generador(rd());
+
+    std::shuffle(
+        cartas.begin(),
+        cartas.end(),
+        generador
+    );
 }
 
-Carta Baraja::sacarCarta()
-{
+Carta Baraja::sacarCarta() {
+
+    if (cartas.empty()) {
+        throw std::runtime_error("La baraja no tiene cartas.");
+    }
+
     Carta carta = cartas.back();
+
     cartas.pop_back();
 
     return carta;
 }
 
-int Baraja::cartasDisponibles()
-{
-    return cartas.size();
+int Baraja::cartasDisponibles() const {
+
+    return static_cast<int>(cartas.size());
 }
 
-vector<Carta> Baraja::getCartas()
-{
+const std::vector<Carta>& Baraja::getCartas() const {
+
     return cartas;
 }
+
+void Baraja::agregarCarta(const Carta& carta) {
+
+    cartas.push_back(carta);
+}
+
+void Baraja::limpiar() {
+
+    cartas.clear();
+}
+
