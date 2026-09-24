@@ -2,11 +2,16 @@
 #include <iostream>
 #include <stdexcept>
 
-Jugador::Jugador(int id_) : id(id_), puntos(0) {}
-
+Jugador::Jugador()
+    : id(0), puntos(0) {
+}
+Jugador::Jugador(int id)
+    : id(id), puntos(0) {
+}
 void Jugador::agregarCarta(const Carta& carta) {
     mano.push_back(carta);
 }
+
 
 Carta Jugador::jugarCarta(const Condicion& condicion) {
     if (mano.empty()) {
