@@ -5,23 +5,26 @@
 #include <string>
 #include "Carta.h"
 
-using namespace std;
-
-class Baraja
-{
+class Baraja {
 private:
-    vector<Carta> cartas;
+    std::vector<Carta> cartas;
+    std::vector<std::string> colores;
+    int maxNumero;
 
 public:
     Baraja();
+    Baraja(const std::vector<std::string>& colores, int maxNumero);
 
     void crearCartas();
     void mezclar();
     Carta sacarCarta();
 
-    int cartasDisponibles();
+    int cartasDisponibles() const;
 
-    vector<Carta> getCartas();
+    const std::vector<Carta>& getCartas() const;
+
+    void agregarCarta(const Carta& carta);
+    void limpiar();
 };
 
 #endif
