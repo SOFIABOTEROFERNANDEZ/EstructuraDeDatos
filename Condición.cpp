@@ -1,12 +1,15 @@
 #include "Condicion.h"
 
-Condicion::Condicion(Color color, TipoOrden tipo)
-    : color(color), tipo(tipo) {}
+Condicion::Condicion()
+    : color(""), orden(TipoOrden::MAYOR){}
+    
+Condicion::Condicion(const std::string& color, TipoOrden orden)
+    : color(color), orden(orden) {}
 
-Color Condicion::getColor() const {
+std::string Condicion::getColor() const {
     return color;
 }
 
-TipoOrden Condicion::getTipo() const {
-    return tipo;
+TipoOrden Condicion::getOrden() const {
+    return orden;
 }
