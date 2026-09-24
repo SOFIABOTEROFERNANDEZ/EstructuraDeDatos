@@ -5,17 +5,17 @@
     <tr>
       <td align="center">
         <b>Juego Estructura (v1)</b><br>
-        <img src="imágenes/Juego_Estructura.drawio.png" width="350" alt="Juego Estructura">
+        <img src="https://raw.githubusercontent.com/SOFIABOTEROFERNANDEZ/EstructuraDeDatos/main/im%C3%A1genes/Juego_Estructura.drawio.png" width="350" alt="Juego Estructura">
       </td>
       <td align="center">
         <b>Juego Estructura V2</b><br>
-        <img src="imágenes/Juego_EstructuraV2.png" width="350" alt="Juego Estructura V2">
+        <img src="https://raw.githubusercontent.com/SOFIABOTEROFERNANDEZ/EstructuraDeDatos/main/im%C3%A1genes/Juego_EstructuraV2.png" width="350" alt="Juego Estructura V2">
       </td>
     </tr>
     <tr>
       <td align="center" colspan="2">
         <b>Juego de Cartas</b><br>
-        <img src="imágenes/juego_cartas.jpeg" width="450" alt="Juego de Cartas">
+        <img src="https://raw.githubusercontent.com/SOFIABOTEROFERNANDEZ/EstructuraDeDatos/main/im%C3%A1genes/juego_cartas.jpeg" width="450" alt="Juego de Cartas">
       </td>
     </tr>
   </table>
