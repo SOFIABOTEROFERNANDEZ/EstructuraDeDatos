@@ -11,11 +11,12 @@ private:
     int numero;
 
 public:
-    Carta(const std::string& color = "", int numero = 0);
+    Carta();
+    Carta(const std::string& color, int numero);
 
     std::string getColor() const;
     int getNumero() const;
-    int obtenerNumero() const;
 };
 
 #endif
+
