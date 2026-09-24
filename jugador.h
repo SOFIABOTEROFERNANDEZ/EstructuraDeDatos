@@ -25,6 +25,8 @@ public:
     void sumarPuntos(int cantidad);
     bool tieneColor(const std::string& color) const;
 
+    Carta seleccionarCarta(const Condicion& condicion) const;
+    Carta elegirCarta(const Condicion& condicion) const;
 };
 
 #endif
